@@ -1,133 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KYAN</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
+
 body{
-  margin:0;
-  font-family:Montserrat;
-  background:#f5f1ed;
-  color:#1a1a1a;
+margin:0;
+font-family:Montserrat;
+background:#f5f1ed;
+color:#111;
 }
 
 nav{
-  display:flex;
-  justify-content:space-between;
-  padding:15px 30px;
-  background:white;
-  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+display:flex;
+justify-content:space-between;
+padding:15px 20px;
+background:white;
 }
 
 .logo{
-  letter-spacing:8px;
-  color:#e6cfc3;
-  font-weight:600;
+letter-spacing:8px;
+color:#e6cfc3;
+font-weight:600;
 }
 
-.container{
-  padding:20px;
+.hero img{
+width:100%;
+height:300px;
+object-fit:cover;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
+.section{
+padding:30px 20px;
+text-align:center;
+}
+
+.title{
+letter-spacing:5px;
+margin-bottom:20px;
+}
+
+.categories{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.cat{
+position:relative;
+}
+
+.cat img{
+width:100%;
+border-radius:10px;
+}
+
+.cat span{
+position:absolute;
+bottom:10px;
+left:15px;
+color:white;
+font-weight:600;
+}
+
+.products{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+padding:20px;
 }
 
 .card{
-  background:white;
-  padding:15px;
-  border-radius:15px;
-  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+background:white;
+padding:10px;
+border-radius:10px;
+text-align:center;
 }
 
 button{
-  padding:12px;
-  border:none;
-  margin-top:8px;
-  width:100%;
-  border-radius:10px;
-  cursor:pointer
+background:#e6cfc3;
+border:none;
+padding:10px;
+width:100%;
+border-radius:8px;
+margin-top:5px;
+}
+
 </style>
 </head>
 
 <body>
 
 <nav>
-  <div class="logo">KYAN</div>
-  <div>Cart 🛒 <span id="count">0</span></div>
+<div class="logo">KYAN</div>
+<div>🛒 0</div>
 </nav>
 
-<div class="container">
-
-<h2>Premium Shirts</h2>
-
-<div class="grid" id="products"></div>
-
+<div class="hero">
+<img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf">
 </div>
 
-<div class="cartBox">
-Total: ৳ <span id="total">0</span>
+<div class="section">
 
-<a href="https://wa.me/880XXXXXXXXXX">
-<button style="background:#e6cfc3">Buy on WhatsApp</button>
-</a>
+<h3 class="title">TOP CATEGORIES</h3>
+
+<div class="categories">
+
+<div class="cat">
+<img src="https://images.unsplash.com/photo-1593032465171-8d3f0f7cbe5a">
+<span>Shirts</span>
 </div>
 
-<script>
+<div class="cat">
+<img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475">
+<span>Panjabi</span>
+</div>
 
-const productList = [
-  {
-    name:"Black Premium Shirt",
-    price:1890,
-    img:"https://images.unsplash.com/photo-1596755094514-f87e34085b2c"
-  },
-  {
-    name:"White Luxury Shirt",
-    price:1990,
-    img:"https://images.unsplash.com/photo-1603252109303-2751441dd157"
-  }
-];
+<div class="cat">
+<img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f">
+<span>T-Shirts</span>
+</div>
 
-let cart = [];
+<div class="cat">
+<img src="https://images.unsplash.com/photo-1520975922323-1c6f2b86b7b0">
+<span>New Arrival</span>
+</div>
 
-function displayProducts(){
-  let html = "";
-  productList.forEach((p,index)=>{
-    html += `
-      <div class="card">
-        <img src="${p.img}" width="100%">
-        <h3>${p.name}</h3>
-        <p>৳ ${p.price}</p>
-        <button onclick="addToCart(${index})">Add to Cart</button>
-      </div>
-    `;
-  });
-  document.getElementById("products").innerHTML = html;
-}
+</div>
+</div>
 
-function addToCart(index){
-  cart.push(productList[index]);
-  updateCart();
-}
+<div class="products">
 
-function updateCart(){
-  document.getElementById("count").innerText = cart.length;
+<div class="card">
+<img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c" width="100%">
+<h4>Black Premium Shirt</h4>
+<p>৳ 1890</p>
+<button>Add to Cart</button>
+</div>
 
-  let total = 0;
-  cart.forEach(item => total += item.price);
+<div class="card">
+<img src="https://images.unsplash.com/photo-1603252109303-2751441dd157" width="100%">
+<h4>White Luxury Shirt</h4>
+<p>৳ 1990</p>
+<button>Add to Cart</button>
+</div>
 
-  document.getElementById("total").innerText = total;
-}
-
-displayProducts();
-
-</script>
+</div>
 
 </body>
 </html>
