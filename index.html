@@ -21,12 +21,14 @@ justify-content:space-between;
 padding:15px 20px;
 background:white;
 }
-
 .logo{
+position:absolute;
+left:50%;
+transform:translateX(-50%);
 letter-spacing:12px;
 color:#e6cfc3;
-font-weight:300;
-  font-size:28px;
+font-weight:500;
+font-size:clamp(24px,6vw,36px);
 }
 
 .hero img{
@@ -97,7 +99,10 @@ margin-top:5px;
 <body>
 
 <nav>
+<div>☰</div>
+
 <div class="logo">K Y A N</div>
+
 <div>🛒 0</div>
 </nav>
 
