@@ -1,52 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KYAN</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
 font-family:Montserrat;
-background:#d9d4cf;
-color:#1a1a1a;
+background:#cfcac5;
+color:white;
+overflow-x:hidden;
 }
 
+/* NAVBAR */
 nav{
+position:fixed;
+top:0;
+width:100%;
 display:flex;
 justify-content:space-between;
-padding:15px 20px;
-background:white;
+align-items:center;
+padding:20px;
+z-index:1000;
 }
+
+/* HAMBURGER */
+.menu{
+font-size:24px;
+cursor:pointer;
+}
+
+/* LOGO */
 .logo{
 position:absolute;
 left:50%;
 transform:translateX(-50%);
+font-size:clamp(28px,7vw,42px);
 letter-spacing:14px;
-color:#ffffff;
-font-weight:700;
-font-size:clamp(32px,8vw,52px);
+font-weight:400;
 }
 
-.hero img{
-width:100%;
-height:300px;
-object-fit:cover;
+/* HERO */
+.hero{
+height:65vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding-top:60px;
 }
 
+.hero h1{
+font-size:clamp(40px,10vw,90px);
+letter-spacing:18px;
+font-weight:300;
+margin:0;
+animation:fadeZoom 1.5s ease;
+}
+
+.hero p{
+letter-spacing:4px;
+font-size:14px;
+margin-top:10px;
+animation:fadeIn 2s ease;
+}
+
+/* SECTION */
 .section{
-padding:30px 20px;
+padding:60px 20px 20px;
 text-align:center;
 }
 
 .title{
-letter-spacing:5px;
-margin-bottom:20px;
+letter-spacing:6px;
+font-weight:400;
+margin-bottom:30px;
 }
 
+/* CATEGORIES */
 .categories{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -66,10 +102,10 @@ border-radius:10px;
 position:absolute;
 bottom:10px;
 left:15px;
-color:white;
 font-weight:600;
 }
 
+/* PRODUCTS */
 .products{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -79,8 +115,9 @@ padding:20px;
 
 .card{
 background:white;
+color:black;
+border-radius:12px;
 padding:10px;
-border-radius:10px;
 text-align:center;
 }
 
@@ -91,30 +128,18 @@ padding:10px;
 width:100%;
 border-radius:8px;
 margin-top:5px;
-}
-  .hero{
-height:80vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-background:#d9d4cf;
+font-weight:600;
 }
 
-.hero-logo{
-font-size:clamp(48px,12vw,110px);
-letter-spacing:18px;
-font-weight:300;
-color:white;
-margin:0;
+/* ANIMATION */
+@keyframes fadeZoom{
+0%{opacity:0; transform:scale(0.8);}
+100%{opacity:1; transform:scale(1);}
 }
 
-.hero-tag{
-margin-top:15px;
-font-size:14px;
-letter-spacing:3px;
-color:#ffffff;
+@keyframes fadeIn{
+0%{opacity:0;}
+100%{opacity:1;}
 }
 
 </style>
@@ -123,23 +148,17 @@ color:#ffffff;
 <body>
 
 <nav>
-<div>☰</div>
-
+<div class="menu">☰</div>
 <div class="logo">KYAN</div>
-
-<div>🛒 0</div>
+<div>🛒</div>
 </nav>
-  <section class="hero">
-  <h1 class="hero-logo">KYAN</h1>
-  <p class="hero-tag">Crafted for Confidence</p>
+
+<section class="hero">
+<h1>KYAN</h1>
+<p>Crafted for Confidence</p>
 </section>
 
-<div class="hero">
-<img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf">
-</div>
-
 <div class="section">
-
 <h3 class="title">TOP CATEGORIES</h3>
 
 <div class="categories">
