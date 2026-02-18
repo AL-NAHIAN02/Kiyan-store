@@ -11,8 +11,8 @@
 body{
 margin:0;
 font-family:Montserrat;
-background:#f5f1ed;
-color:#111;
+background:#d9d4cf;
+color:#1a1a1a;
 }
 
 nav{
@@ -26,7 +26,7 @@ position:absolute;
 left:50%;
 transform:translateX(-50%);
 letter-spacing:14px;
-color:#e6cfc3;
+color:#ffffff;
 font-weight:700;
 font-size:clamp(32px,8vw,52px);
 }
@@ -92,6 +92,30 @@ width:100%;
 border-radius:8px;
 margin-top:5px;
 }
+  .hero{
+height:80vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:#d9d4cf;
+}
+
+.hero-logo{
+font-size:clamp(48px,12vw,110px);
+letter-spacing:18px;
+font-weight:300;
+color:white;
+margin:0;
+}
+
+.hero-tag{
+margin-top:15px;
+font-size:14px;
+letter-spacing:3px;
+color:#ffffff;
+}
 
 </style>
 </head>
@@ -105,6 +129,10 @@ margin-top:5px;
 
 <div>🛒 0</div>
 </nav>
+  <section class="hero">
+  <h1 class="hero-logo">KYAN</h1>
+  <p class="hero-tag">Crafted for Confidence</p>
+</section>
 
 <div class="hero">
 <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf">
