@@ -55,6 +55,13 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:#b7b7b7;
+z-index:999;
+
 animation: heroUp 1.4s ease forwards;
 animation-delay:1.5s;
 }
@@ -313,7 +320,9 @@ closePopup();
 function updateCart(){
 document.getElementById("cart-count").innerText = cart.length;
 }
-
+setTimeout(()=>{
+document.querySelector(".hero").style.display="none";
+},3000);
 </script>
 </body>
 </html>
