@@ -33,9 +33,10 @@ z-index:1000;
 position:absolute;
 left:50%;
 transform:translateX(-50%);
-font-size:32px;
-letter-spacing:14px;
-font-weight:600;
+font-size:28px;
+letter-spacing:12px;
+font-weight:300;
+color:white;
 }
 
 .cart{font-size:20px;}
@@ -48,10 +49,9 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-animation:heroUp 1.4s ease forwards;
-animation-delay:1.5s;
+animation: heroUp 1.8s ease forwards;
+animation-delay:1.8s;
 }
-
 .hero h1{font-size:clamp(40px,10vw,90px);}
 .hero p{font-size:14px;letter-spacing:4px;animation:fadeIn 2s ease;}
 
@@ -59,6 +59,9 @@ animation-delay:1.5s;
 .section{
 padding:60px 20px 20px;
 text-align:center;
+opacity:0;
+animation: showContent 1s ease forwards;
+animation-delay:3.4s;
 }
 
 .title{
@@ -138,7 +141,10 @@ text-align:center;
 
 @keyframes heroUp{
 0%{transform:translateY(0);}
-100%{transform:translateY(-120px);}
+100%{transform:translateY(-100vh);}
+}
+@keyframes showContent{
+to{opacity:1;}
 }
 
 </style>
