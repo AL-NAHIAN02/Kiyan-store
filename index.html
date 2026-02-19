@@ -228,8 +228,8 @@ to{opacity:1;}
 <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c">
 <h4>Black Premium Shirt</h4>
 <p>৳ 1890</p>
-<button onclick="openPopup('Black Premium Shirt',1890)">Add to Cart</button>
-<button onclick="buyNow('Black Premium Shirt',1890)">Buy Now</button>
+<button onclick="openPopup('Black Premium Shirt',1890,'cart')">Add to Cart</button>
+<button onclick="openPopup('Black Premium Shirt',1890,'buy')">Buy Now</button>
 </div>
 
 <div class="card">
@@ -237,7 +237,7 @@ to{opacity:1;}
 <h4>White Luxury Shirt</h4>
 <p>৳ 1990</p>
 <button onclick="openPopup('White Luxury Shirt',1990)">Add to Cart</button>
-<button onclick="buyNow('White Luxury Shirt',1990)">Buy Now</button>
+<button onclick="openPopup('White Luxury Shirt',1990)">Buy Now</button>
 </div>
 
 </div>
@@ -275,22 +275,22 @@ let actionType = ""
 updateCart()
 
 function openPopup(name,price,type){
-selectedProduct={name,price}
-actionType=type
-document.getElementById("popup").style.display="flex"
+selectedProduct = {name,price}
+actionType = type
+document.getElementById("popup").style.display = "flex"
 }
 
 function closePopup(){
-document.getElementById("popup").style.display="none"
+document.getElementById("popup").style.display = "none"
 }
 
 function confirmAction(){
 
-let size=document.getElementById("size").value
-let qty=document.getElementById("qty").value
-let total=selectedProduct.price*qty
+let size = document.getElementById("size").value
+let qty = document.getElementById("qty").value
+let total = selectedProduct.price * qty
 
-if(actionType==="cart"){
+if(actionType === "cart"){
 
 cart.push({...selectedProduct,size,qty})
 localStorage.setItem("cart",JSON.stringify(cart))
@@ -299,48 +299,51 @@ closePopup()
 
 }
 
-if(actionType==="buy"){
+if(actionType === "buy"){
 
-window.location.href="https://bkash.com/payment?amount="+total
+window.location.href="https://checkout.bka.sh/v1.2.0-beta/checkout/payment?amount="+total
 
 }
 
 }
 
 function updateCart(){
-document.getElementById("cart-count").innerText=cart.length
+
+let count = 0
+cart.forEach(item => count += Number(item.qty))
+
+document.getElementById("cart-count").innerText = count
 }
 
 function openCart(){
 
-let items=""
-let total=0
+let items = ""
+let total = 0
 
 cart.forEach(item=>{
-items+=`<p>${item.name} (${item.size}) x ${item.qty}</p>`
-total+=item.price*item.qty
+items += `<p>${item.name} (${item.size}) x ${item.qty}</p>`
+total += item.price * item.qty
 })
 
-document.getElementById("cartItems").innerHTML=items
-document.getElementById("cartTotal").innerText="Total: ৳ "+total
+document.getElementById("cartItems").innerHTML = items
+document.getElementById("cartTotal").innerText = "Total: ৳ " + total
 
-document.getElementById("cartBox").style.display="flex"
-
+document.getElementById("cartBox").style.display = "flex"
 }
 
 function closeCart(){
-document.getElementById("cartBox").style.display="none"
+document.getElementById("cartBox").style.display = "none"
 }
 
 function checkoutCart(){
 
-let total=0
+let total = 0
 
 cart.forEach(item=>{
-total+=item.price*item.qty
+total += item.price * item.qty
 })
 
-window.location.href="https://bkash.com/payment?amount="+total
+window.location.href="https://checkout.bka.sh/v1.2.0-beta/checkout/payment?amount="+total
 
 }
 
