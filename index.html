@@ -288,16 +288,7 @@ Buy Now
 </div>
 
 <script>
-function removeItem(index){
 
-cart.splice(index,1)
-
-localStorage.setItem("cart",JSON.stringify(cart))
-
-updateCart()
-openCart()
-
-}
 let cart = JSON.parse(localStorage.getItem("cart")) || []
 let selectedProduct = {}
 let actionType = ""
@@ -307,41 +298,36 @@ updateCart()
 function openPopup(name,price,type){
 selectedProduct = {name,price}
 actionType = type
-document.getElementById("popup").style.display = "flex"
+document.getElementById("popup").style.display="flex"
 }
 
 function closePopup(){
-document.getElementById("popup").style.display = "none"
+document.getElementById("popup").style.display="none"
 }
 
-async function confirmAction(){
+function confirmAction(){
 
 let size = document.getElementById("size").value
 let qty = Number(document.getElementById("qty").value)
+
 if(qty < 1){
 alert("Invalid quantity")
 return
 }
-let price = Number(selectedProduct.price)
 
-let total = price * qty
+let total = selectedProduct.price * qty
 
 if(actionType === "cart"){
 
 cart.push({
-name: selectedProduct.name,
-price: Number(selectedProduct.price),
-size: size,
-qty: Number(qty)
+name:selectedProduct.name,
+price:selectedProduct.price,
+size:size,
+qty:qty
 })
+
 localStorage.setItem("cart",JSON.stringify(cart))
-if(window.auth && auth.currentUser){
 
-await setDoc(doc(db,"users",auth.currentUser.uid),{
-cart: cart
-})
-
-}
 updateCart()
 closePopup()
 
@@ -360,55 +346,59 @@ function updateCart(){
 let count = 0
 
 cart.forEach(item=>{
-count += Number(item.qty)
+count += item.qty
 })
 
 document.getElementById("cart-count").innerText = count
 
 }
+
 function openCart(){
 
-let items = ""
-let total = 0
+let items=""
+let total=0
 
 cart.forEach((item,index)=>{
-items += `
+items+=`
 <p>
 ${item.name} (${item.size}) x ${item.qty}
 <button onclick="removeItem(${index})">❌</button>
 </p>
 `
-total += Number(item.price) * Number(item.qty)
+total+=item.price*item.qty
 })
 
-document.getElementById("cartItems").innerHTML = items
-document.getElementById("cartTotal").innerText = "Total: ৳ " + total
+document.getElementById("cartItems").innerHTML=items
+document.getElementById("cartTotal").innerText="Total: ৳ "+total
+document.getElementById("cartBox").style.display="flex"
 
-document.getElementById("cartBox").style.display = "flex"
 }
 
 function closeCart(){
-document.getElementById("cartBox").style.display = "none"
+document.getElementById("cartBox").style.display="none"
+}
+
+function removeItem(index){
+
+cart.splice(index,1)
+localStorage.setItem("cart",JSON.stringify(cart))
+
+updateCart()
+openCart()
+
 }
 
 function checkoutCart(){
 
-let total = 0
+let total=0
 
 cart.forEach(item=>{
-total += Number(item.price) * Number(item.qty)
+total+=item.price*item.qty
 })
 
-total = total.toFixed(2)
-
-if(total <= 0){
-alert("Cart is empty")
+if(total<=0){
+alert("Cart empty")
 return
-}
-
-window.location.href =
-"https://checkout.bka.sh/v1.2.0-beta/checkout/payment?amount=" + total
-
 }
 
 window.location.href="https://checkout.bka.sh/v1.2.0-beta/checkout/payment?amount="+total
@@ -416,7 +406,6 @@ window.location.href="https://checkout.bka.sh/v1.2.0-beta/checkout/payment?amoun
 }
 
 </script>
-
 <!-- 🔥 FIREBASE LOGIN START -->
 
 
