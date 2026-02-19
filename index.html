@@ -55,8 +55,8 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-animation:heroUp 1.8s ease forwards;
-animation-delay:1.8s;
+animation:heroUp 1.6s ease forwards;
+animation-delay:2s;
 }
 
 .hero h1{
@@ -77,7 +77,7 @@ animation:fadeIn 2s ease;
 .section{
 padding:60px 20px;
 text-align:center;
-margin-top:-100vh;
+opacity:0;
 }
 
 .title{
@@ -177,7 +177,6 @@ transform:translateY(0);
 }
 100%{
 transform:translateY(-100%);
-opacity:0;
 }
 }
 
@@ -308,6 +307,12 @@ document.getElementById("cart-count").innerText = cart.length;
 }
 
 </script>
+<script>
 
+setTimeout(()=>{
+document.querySelector(".section").style.opacity="1";
+},2200);
+
+</script>
 </body>
 </html>
