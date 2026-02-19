@@ -49,13 +49,14 @@ font-size:20px;
 /* HERO */
 
 .hero{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  animation: heroUp 1.8s ease forwards;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+animation: heroUp 1.4s ease forwards;
+animation-delay:1.5s;
 }
 
 .hero h1{
@@ -76,9 +77,12 @@ animation:fadeIn 2s ease;
 .section{
 padding:60px 20px 20px;
 text-align:center;
+
 opacity:0;
+transform:translateY(40px);
+
 animation: showContent 1s ease forwards;
-animation-delay:1.5s;
+animation-delay:1.6s;
 }
 
 
@@ -174,16 +178,14 @@ text-align:center;
 100%{opacity:1;}
 }
 @keyframes heroUp{
-0%{
-transform:translateY(0);
-}
-
-100%{
-transform:translateY(-120px);
-}
+0%{transform:translateY(0);}
+100%{transform:translateY(-120px);}
 }
 @keyframes showContent{
-to{opacity:1;}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 </style>
