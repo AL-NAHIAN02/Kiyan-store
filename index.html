@@ -207,14 +207,25 @@ to{opacity:1;}
 </div>
 
 <nav>
-<div class="menu" onclick="openMenu()">☰</div>
+<div class="menu" onclick="toggleMenu()">☰</div>
 
 <div class="logo">KYAN</div>
 
-<div>
-<span id="userName"></span>
-<button onclick="googleLogin()">Login</button>
-<button onclick="logout()">Logout</button>
+<div class="cart" onclick="openCart()">🛒 <span id="cart-count">0</span></div>
+</nav>
+
+<!-- MENU PANEL -->
+<div id="sideMenu" class="popup">
+  <div class="popup-content">
+
+    <h3>Account</h3>
+
+    <div id="userName"></div>
+
+    <button onclick="googleLogin()">Login with Google</button>
+    <button onclick="logout()">Logout</button>
+
+  </div>
 </div>
 
 <div class="cart" onclick="openCart()">🛒 <span id="cart-count">0</span></div>
@@ -324,6 +335,13 @@ let box = document.getElementById("accountBox")
 
 box.style.display = box.style.display === "none" ? "block" : "none"
 
+}
+function toggleMenu(){
+document.getElementById("sideMenu").style.display="flex"
+}
+
+function closeMenu(){
+document.getElementById("sideMenu").style.display="none"
 }
 
 let cart = JSON.parse(localStorage.getItem("cart")) || []
@@ -463,34 +481,8 @@ window.location.href="https://checkout.bka.sh/v1.2.0-beta/checkout/payment?amoun
 </div>
 </div>
 <script type="module">
-window.googleLogin = async function(){
-
-const provider = new GoogleAuthProvider()
-const result = await signInWithPopup(auth, provider)
-
-document.getElementById("userName").innerText =
-result.user.displayName
-
-}
-
-window.logout = async function(){
-
-await signOut(auth)
-document.getElementById("userName").innerText=""
-
-}
-
-onAuthStateChanged(auth,(user)=>{
-
-if(user){
-document.getElementById("userName").innerText = user.displayName
-}
-
-})
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1zXwe0mIsoCi-cTkmt8IXJLaIfEpWCOI",
@@ -503,8 +495,24 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-const db = getFirestore();
 
+const provider = new GoogleAuthProvider();
+
+window.googleLogin = function(){
+signInWithPopup(auth, provider)
+}
+
+window.logout = function(){
+signOut(auth)
+}
+
+onAuthStateChanged(auth, user=>{
+if(user){
+document.getElementById("userName").innerText = user.displayName
+}else{
+document.getElementById("userName").innerText = ""
+}
+})
 </script>
 </body>
 </html>
