@@ -186,7 +186,15 @@ to{opacity:1;}
 
 <nav>
 <div class="menu">☰</div>
+
 <div class="logo">KYAN</div>
+
+<div>
+<span id="userName"></span>
+<button onclick="googleLogin()">Login</button>
+<button onclick="logout()">Logout</button>
+</div>
+
 <div class="cart" onclick="openCart()">🛒 <span id="cart-count">0</span></div>
 </nav>
 
@@ -306,16 +314,34 @@ function closePopup(){
 document.getElementById("popup").style.display = "none"
 }
 
-function confirmAction(){
+async function confirmAction(){
 
 let size = document.getElementById("size").value
-let qty = document.getElementById("qty").value
-let total = selectedProduct.price * qty
+let qty = Number(document.getElementById("qty").value)
+if(qty < 1){
+alert("Invalid quantity")
+return
+}
+let price = Number(selectedProduct.price)
+
+let total = price * qty
 
 if(actionType === "cart"){
 
-cart.push({...selectedProduct,size,qty})
+cart.push({
+name: selectedProduct.name,
+price: Number(selectedProduct.price),
+size: size,
+qty: Number(qty)
+})
 localStorage.setItem("cart",JSON.stringify(cart))
+if(window.auth && auth.currentUser){
+
+await setDoc(doc(db,"users",auth.currentUser.uid),{
+cart: cart
+})
+
+}
 updateCart()
 closePopup()
 
@@ -332,11 +358,14 @@ window.location.href="https://checkout.bka.sh/v1.2.0-beta/checkout/payment?amoun
 function updateCart(){
 
 let count = 0
-cart.forEach(item => count += Number(item.qty))
+
+cart.forEach(item=>{
+count += Number(item.qty)
+})
 
 document.getElementById("cart-count").innerText = count
-}
 
+}
 function openCart(){
 
 let items = ""
@@ -349,7 +378,7 @@ ${item.name} (${item.size}) x ${item.qty}
 <button onclick="removeItem(${index})">❌</button>
 </p>
 `
-total += item.price * item.qty
+total += Number(item.price) * Number(item.qty)
 })
 
 document.getElementById("cartItems").innerHTML = items
@@ -367,14 +396,32 @@ function checkoutCart(){
 let total = 0
 
 cart.forEach(item=>{
-total += item.price * item.qty
+total += Number(item.price) * Number(item.qty)
 })
+
+total = total.toFixed(2)
+
+if(total <= 0){
+alert("Cart is empty")
+return
+}
+
+window.location.href =
+"https://checkout.bka.sh/v1.2.0-beta/checkout/payment?amount=" + total
+
+}
 
 window.location.href="https://checkout.bka.sh/v1.2.0-beta/checkout/payment?amount="+total
 
 }
 
 </script>
+
+<!-- 🔥 FIREBASE LOGIN START -->
+
+
+
+<!-- 🔥 FIREBASE LOGIN END -->
 <div id="cartBox" class="popup">
 <div class="popup-content">
 
@@ -389,5 +436,25 @@ window.location.href="https://checkout.bka.sh/v1.2.0-beta/checkout/payment?amoun
 
 </div>
 </div>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA1zXwe0mIsoCi-cTkmt8IXJLaIfEpWCOI",
+  authDomain: "kyan-52ae6.firebaseapp.com",
+  projectId: "kyan-52ae6",
+  storageBucket: "kyan-52ae6.firebasestorage.app",
+  messagingSenderId: "714052026717",
+  appId: "1:714052026717:web:1c794cea2387384f44e8b4"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore();
+
+</script>
 </body>
 </html>
