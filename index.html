@@ -49,14 +49,13 @@ font-size:20px;
 /* HERO */
 
 .hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-animation:heroUp 1.6s ease forwards;
-animation-delay:2s;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  animation: heroUp 1.8s ease forwards;
 }
 
 .hero h1{
@@ -75,10 +74,13 @@ animation:fadeIn 2s ease;
 /* SECTION */
 
 .section{
-padding:60px 20px;
+padding:60px 20px 20px;
 text-align:center;
 opacity:0;
+animation: showContent 1s ease forwards;
+animation-delay:1.5s;
 }
+
 
 .title{
 letter-spacing:6px;
@@ -175,9 +177,13 @@ text-align:center;
 0%{
 transform:translateY(0);
 }
+
 100%{
-transform:translateY(-100%);
+transform:translateY(-120px);
 }
+}
+@keyframes showContent{
+to{opacity:1;}
 }
 
 </style>
