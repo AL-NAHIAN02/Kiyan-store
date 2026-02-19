@@ -82,7 +82,7 @@ opacity:0;
 transform:translateY(40px);
 
 animation: showContent 1s ease forwards;
-animation-delay:1.6s;
+animation-delay:3s;
 }
 
 
@@ -179,7 +179,7 @@ text-align:center;
 }
 @keyframes heroUp{
 0%{transform:translateY(0);}
-100%{transform:translateY(-120px);}
+100%{transform:translateY(-100%);}
 }
 @keyframes showContent{
 to{
@@ -313,13 +313,6 @@ closePopup();
 function updateCart(){
 document.getElementById("cart-count").innerText = cart.length;
 }
-
-</script>
-<script>
-
-setTimeout(()=>{
-document.querySelector(".section").style.opacity="1";
-},2200);
 
 </script>
 </body>
