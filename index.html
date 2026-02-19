@@ -29,9 +29,6 @@ padding:18px 20px;
 z-index:1000;
 }
 
-.menu{font-size:26px;}
-.cart{font-size:20px;}
-
 .logo{
 position:absolute;
 left:50%;
@@ -39,6 +36,14 @@ transform:translateX(-50%);
 font-size:32px;
 letter-spacing:14px;
 font-weight:300;
+}
+
+.menu{
+font-size:26px;
+}
+
+.cart{
+font-size:20px;
 }
 
 /* HERO */
@@ -50,7 +55,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 animation:heroUp 1.4s ease forwards;
-animation-delay:1.6s;
+animation-delay:1.8s;
 }
 
 .hero-logo{
@@ -60,22 +65,19 @@ font-weight:300;
 }
 
 .hero p{
-margin-top:10px;
 font-size:14px;
 letter-spacing:4px;
-opacity:.9;
+margin-top:10px;
 }
 
 /* SECTION */
 
 .section{
-padding:60px 20px 20px;
+padding:80px 20px 20px;
 text-align:center;
-
 opacity:0;
-transform:translateY(40px);
 animation:showContent 1s ease forwards;
-animation-delay:2.2s;
+animation-delay:2s;
 }
 
 .title{
@@ -93,13 +95,12 @@ gap:15px;
 
 .cat img{
 width:100%;
-border-radius:12px;
+border-radius:10px;
 }
 
 .cat span{
-position:absolute;
-bottom:10px;
-left:15px;
+display:block;
+margin-top:8px;
 font-weight:600;
 }
 
@@ -115,33 +116,59 @@ padding:20px;
 .card{
 background:white;
 color:black;
-border-radius:14px;
+border-radius:12px;
 padding:10px;
 text-align:center;
 }
 
+.card img{
+width:100%;
+border-radius:10px;
+}
+
 button{
-background:#e6cfc3;
+background:#d6c1b4;
 border:none;
 padding:12px;
 width:100%;
-border-radius:8px;
 margin-top:8px;
+border-radius:8px;
 font-weight:600;
+}
+
+/* POPUP */
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.popup-content{
+background:white;
+color:black;
+padding:20px;
+border-radius:12px;
+width:80%;
+max-width:300px;
+text-align:center;
 }
 
 /* ANIMATION */
 
 @keyframes heroUp{
 0%{transform:translateY(0);}
-100%{transform:translateY(-120%);}
+100%{transform:translateY(-120px);}
 }
 
 @keyframes showContent{
-to{
-opacity:1;
-transform:translateY(0);
-}
+to{opacity:1;}
 }
 
 </style>
@@ -152,13 +179,17 @@ transform:translateY(0);
 <nav>
 <div class="menu">☰</div>
 <div class="logo">KYAN</div>
-<div class="cart">🛒</div>
+<div class="cart">🛒 <span id="cart-count">0</span></div>
 </nav>
+
+<!-- HERO -->
 
 <section class="hero">
 <div class="hero-logo">KYAN</div>
 <p>Crafted for Confidence</p>
 </section>
+
+<!-- CATEGORIES -->
 
 <div class="section">
 
@@ -167,24 +198,115 @@ transform:translateY(0);
 <div class="categories">
 
 <div class="cat">
-<img src="https://images.unsplash.com/photo-1593032465171-8d3f0f7cbe5a">
+<img src="https://images.unsplash.com/photo-1593030761757-71fae45fa0e7">
+<span>Shirts</span>
 </div>
 
 <div class="cat">
-<img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475">
+<img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf">
+<span>Panjabi</span>
 </div>
 
 <div class="cat">
-<img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f">
+<img src="https://images.unsplash.com/photo-1583743814966-8936f37f4678">
+<span>T-Shirts</span>
 </div>
 
 <div class="cat">
-<img src="https://images.unsplash.com/photo-1520975922323-1c6f2b86b7b0">
+<img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b">
+<span>New Arrival</span>
+</div>
+
+</div>
+</div>
+
+<!-- PRODUCTS -->
+
+<div class="products">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c">
+<h4>Black Premium Shirt</h4>
+<p>৳ 1890</p>
+<button onclick="openPopup('Black Premium Shirt',1890)">Add to Cart</button>
+<button onclick="buyNow('Black Premium Shirt',1890)">Buy Now</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1603252109303-2751441dd157">
+<h4>White Luxury Shirt</h4>
+<p>৳ 1990</p>
+<button onclick="openPopup('White Luxury Shirt',1990)">Add to Cart</button>
+<button onclick="buyNow('White Luxury Shirt',1990)">Buy Now</button>
 </div>
 
 </div>
 
+<!-- POPUP -->
+
+<div id="popup" class="popup">
+<div class="popup-content">
+
+<h3>Select Size</h3>
+
+<select id="size">
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<h3>Quantity</h3>
+<input type="number" id="qty" value="1" min="1">
+
+<button onclick="confirmAdd()">Add to Cart</button>
+<button onclick="closePopup()">Cancel</button>
+
 </div>
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || []
+let selectedProduct = {}
+
+updateCart()
+
+function openPopup(name,price){
+selectedProduct={name,price}
+document.getElementById("popup").style.display="flex"
+}
+
+function closePopup(){
+document.getElementById("popup").style.display="none"
+}
+
+function confirmAdd(){
+let size=document.getElementById("size").value
+let qty=document.getElementById("qty").value
+
+cart.push({...selectedProduct,size,qty})
+localStorage.setItem("cart",JSON.stringify(cart))
+
+updateCart()
+closePopup()
+}
+
+function updateCart(){
+document.getElementById("cart-count").innerText=cart.length
+}
+
+function buyNow(name,price){
+
+let size=document.getElementById("size").value
+let qty=document.getElementById("qty").value
+
+let total=price*qty
+
+window.location.href="https://bkash.com/payment?amount="+total
+}
+
+</script>
 
 </body>
 </html>
