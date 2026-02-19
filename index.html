@@ -7,6 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+#cartItems button{
+background:red;
+color:white;
+border:none;
+padding:4px 8px;
+margin-left:10px;
+border-radius:5px;
+}
 
 body{
 margin:0;
@@ -267,7 +275,16 @@ to{opacity:1;}
 </div>
 
 <script>
+function removeItem(index){
 
+cart.splice(index,1)
+
+localStorage.setItem("cart",JSON.stringify(cart))
+
+updateCart()
+openCart()
+
+}
 let cart = JSON.parse(localStorage.getItem("cart")) || []
 let selectedProduct = {}
 let actionType = ""
@@ -320,8 +337,13 @@ function openCart(){
 let items = ""
 let total = 0
 
-cart.forEach(item=>{
-items += `<p>${item.name} (${item.size}) x ${item.qty}</p>`
+cart.forEach((item,index)=>{
+items += `
+<p>
+${item.name} (${item.size}) x ${item.qty}
+<button onclick="removeItem(${index})">❌</button>
+</p>
+`
 total += item.price * item.qty
 })
 
